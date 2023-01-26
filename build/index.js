@@ -1,15 +1,8 @@
 "use strict";
 // Comment
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+const Students_1 = require("./models/Students");
+const cursos_mock_1 = require("./mock/cursos.mock");
 /**
  * Documentation
  * Multi-line
@@ -328,18 +321,22 @@ console.log(getSalary(employeeAndrew, () => 'test this'));
 console.log(`************************************************************`);
 console.log(`************************************************************`);
 //Async functions
-function asyncExample() {
-    return __awaiter(this, void 0, void 0, function* () {
-        yield console.log('task to complete before continuing');
-        console.log('Task completed');
-        return 'Completed!!!!';
-    });
+/*
+async function asyncExample():Promise<string>{
+
+    await console.log('task to complete before continuing');
+    console.log('Task completed')
+    return 'Completed!!!!'
 }
-asyncExample().then((response) => {
-    console.log("Response", response);
-}).catch((error) => {
-    console.log('There has been an error', error);
-}).finally(() => 'Finished async function');
+
+
+asyncExample().then((response)=>{
+    console.log("Response", response)
+}).catch((error)=>{
+    console.log('There has been an error', error)
+}).finally(()=> 'Finished async function')
+
+*/
 //Generators
 /**
  * function* is reseverd for generator function
@@ -377,3 +374,108 @@ console.log('done by worker', genertorSaga.next().value); // 1 (done by worker)
 console.log('done by worker', genertorSaga.next().value); // 2 (done by worker)
 console.log('done by worker', genertorSaga.next().value); // 3 (done by worker)
 console.log('done by watcher', genertorSaga.next().value); // 4 (done by watcher)
+console.log(`************************************************************`);
+console.log(`************************************************************`);
+// Function Overload
+function showError(error) {
+    console.log(`There is an error: ${error}`);
+}
+console.log(`************************************************************`);
+console.log(`************************************************************`);
+console.log(`************************************************************`);
+console.log(`************************************************************`);
+//DATA Storage
+//1. LocalStorage - Data in Browser, it won't be deleted automatically. It must be removed by code or by the user.
+//2. SessionStorage - Data in Browser. Data will be storage in the browser during the session.
+//3. Cookies - They work as the LocalStorage, but they have an expiration date.
+// Local Storage
+/*
+function saveLocalStorage():void {
+    localStorage.setItem('bgcolor', 'red');
+}
+
+function readLocalStorage():void {
+    let name = localStorage.get("name");
+}
+*/
+// Cookies - cookies-utils from npm
+/*
+const cookieOptions = {
+    name: "user", // string,
+    value: "Pete", // string,
+    maxAge: 10 * 60, // optional number (value in seconds),
+    expires: new Date(2099, 10, 1), // optional Date,
+    path: "/", // optional string,
+};
+
+//set Cookie
+setCookie(cookieOptions);
+
+//read Cookie
+let cookieRead = getCookieValue("user");
+
+//delete Cookie - delete the cookie with name user (set on line 538)
+deleteCookie("user");
+
+//delete All Cookies
+deleteAllCookies();
+*/
+console.log(`************************************************************`);
+console.log(`************************************************************`);
+// Events
+// Class Timer
+class Timer {
+    start() {
+        setTimeout(() => {
+            //Check first if we have a finished function
+            if (!this.finished)
+                return;
+            //Afeter 10 seconds we call finished function
+            this.finished(Date.now());
+        }, 10000);
+    }
+}
+const myTimer = new Timer();
+//define callback functions 
+myTimer.finished = (time) => {
+    console.log('Timer has been completed ', time);
+};
+//trigger timer
+myTimer.start();
+//setInterval(()=> console.log('Tic'), 1000) //prints tic every 10 sec
+//deletes function execution
+delete myTimer.finished;
+console.log(`************************************************************`);
+console.log(`************************************************************`);
+console.log(`************************************************************`);
+console.log(`************************************************************`);
+//TODO:Objects and Classes
+// Classes
+/**
+ * Clases are imported from models folder
+ *
+ * import { Course } from "./models/Courses";
+ * import { Student } from "./models/Students";
+ * at the beggining of the file
+ */
+// Course creation
+/*
+const courseTS: Course = new Course('TypeScript', 15);
+const courseJS: Course = new Course('JavaScript', 20);
+const courseAngular: Course = new Course('Angular', 40);
+const courseList: Course[] = [];
+courseList.push(courseTS, courseJS); // [course list]
+*/
+// Course creation using mock file (mock folder)
+const courseList = cursos_mock_1.COURSE_LIST; // COURSE_LIST is imported from models folder
+// Student creation
+const peter = new Students_1.Student('Peter', courseList, 'Lee');
+//peter.courses.push(courseAngular);
+console.log(`${peter.name} is coursing: `);
+peter.courses.forEach((course) => {
+    console.log(`- ${course.name} - ${course.hours} hours`);
+});
+console.log('Total Hours: ', peter.totalHours); // accessing to object GET
+console.log('Peter Student Id: ', peter.student_ID); // accessing to object GET
+peter.change_ID = 'AAAe21';
+console.log('Peter Student Id: ', peter.student_ID); // accessing to object GET

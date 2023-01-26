@@ -3,6 +3,9 @@
 
 import { type } from "os";
 import { deleteAllCookies, deleteCookie, getCookieValue, setCookie } from "cookies-utils";
+import { Course } from "./models/Courses";
+import { Student } from "./models/Students";
+import { COURSE_LIST } from "./mock/cursos.mock";
 
 /**
  * Documentation
@@ -429,7 +432,7 @@ console.log(`************************************************************`);
 
 
 //Async functions
-
+/*
 async function asyncExample():Promise<string>{
 
     await console.log('task to complete before continuing');
@@ -444,7 +447,7 @@ asyncExample().then((response)=>{
     console.log('There has been an error', error)
 }).finally(()=> 'Finished async function')
 
-
+*/
 
 //Generators
 /**
@@ -534,7 +537,7 @@ function readLocalStorage():void {
 */
 
 // Cookies - cookies-utils from npm
-
+/*
 const cookieOptions = {
     name: "user", // string,
     value: "Pete", // string,
@@ -554,7 +557,102 @@ deleteCookie("user");
 
 //delete All Cookies
 deleteAllCookies();
+*/
+console.log(`************************************************************`);
+console.log(`************************************************************`);
+
+// Events
+
+// Class Timer
+
+class Timer {
+
+    public finished?: (time: number)=>void;
+
+    public start(): void {
+
+        setTimeout(() => {
+            
+            //Check first if we have a finished function
+            if(!this.finished) return;
+
+            //Afeter 10 seconds we call finished function
+            this.finished(Date.now());
+
+        }, 10000);
+
+    }
+
+}
+
+const myTimer: Timer = new Timer();
+
+//define callback functions 
+
+myTimer.finished = (time:number) => {
+    console.log('Timer has been completed ', time);
+}
+
+//trigger timer
+myTimer.start();
+
+//setInterval(()=> console.log('Tic'), 1000) //prints tic every 10 sec
+
+//deletes function execution
+delete myTimer.finished;
 
 
+console.log(`************************************************************`);
+console.log(`************************************************************`);
+console.log(`************************************************************`);
+console.log(`************************************************************`);
+
+
+
+//TODO:Objects and Classes
+
+// Classes
+
+/**
+ * Clases are imported from models folder
+ * 
+ * import { Course } from "./models/Courses";
+ * import { Student } from "./models/Students";
+ * at the beggining of the file
+ */
+
+
+
+// Course creation
+
+/*
+const courseTS: Course = new Course('TypeScript', 15);
+const courseJS: Course = new Course('JavaScript', 20);
+const courseAngular: Course = new Course('Angular', 40);
+const courseList: Course[] = [];
+courseList.push(courseTS, courseJS); // [course list]
+*/
+
+
+// Course creation using mock file (mock folder)
+
+const courseList: Course[] = COURSE_LIST; // COURSE_LIST is imported from models folder
+
+
+// Student creation
+
+const peter:Student = new Student('Peter', courseList, 'Lee');
+//peter.courses.push(courseAngular);
+
+console.log(`${peter.name} is coursing: `);
+peter.courses.forEach((course: Course)=>{
+    console.log(`- ${course.name} - ${course.hours} hours`);
+});
+
+
+console.log('Total Hours: ', peter.totalHours); // accessing to object GET
+console.log('Peter Student Id: ',peter.student_ID); // accessing to object GET
+peter.change_ID = 'AAAe21'; // change private variable through the setter we've created
+console.log('Peter Student Id: ',peter.student_ID); // accessing to object GET
 
 
