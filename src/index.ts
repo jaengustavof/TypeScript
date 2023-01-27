@@ -6,6 +6,10 @@ import { deleteAllCookies, deleteCookie, getCookieValue, setCookie } from "cooki
 import { Course } from "./models/Courses";
 import { Student } from "./models/Students";
 import { COURSE_LIST } from "./mock/cursos.mock";
+import { Boss, Employees } from "./models/Person";
+import { ITask, Levels } from "./models/interfaces/ITask";
+import { Develop } from "./models/Develop";
+import { Singleton } from "./patterns/creational/Singleton";
 
 /**
  * Documentation
@@ -526,7 +530,7 @@ console.log(`************************************************************`);
 
 // Local Storage
 
-/*
+
 function saveLocalStorage():void {
     localStorage.setItem('bgcolor', 'red');
 }
@@ -534,7 +538,7 @@ function saveLocalStorage():void {
 function readLocalStorage():void {
     let name = localStorage.get("name");
 }
-*/
+
 
 // Cookies - cookies-utils from npm
 /*
@@ -656,3 +660,150 @@ peter.change_ID = 'AAAe21'; // change private variable through the setter we've 
 console.log('Peter Student Id: ',peter.student_ID); // accessing to object GET
 
 
+
+
+// instanceof - To know if a variable is a certain class or sontructor 
+
+let dob = new Date(1991,10,10);
+
+if(dob instanceof Date){
+    console.log('Its a date');
+}
+
+if(peter instanceof Student){
+    console.log('peter is a student')
+}
+
+console.log(`************************************************************`);
+console.log(`************************************************************`);
+console.log(`************************************************************`);
+console.log(`************************************************************`);
+
+/// POLIMORFISM and inheritance
+
+let employee1 = new Employees('Mark','Robertson', 25, 2000);
+let employee2 = new Employees('Steve','Lorens', 42, 5000);
+let employee3 = new Employees('Paul','Merson', 32, 4000);
+
+employee1.greet();
+employee2.greet();
+employee3.greet();
+
+console.log(`************************************************************`);
+console.log(`Calling from inside boss class`);
+console.log(`************************************************************`);
+let boss1 = new Boss("Pablo", "Garcia", 52);
+
+boss1.employees.push(employee1, employee2, employee3);
+
+boss1.employees.forEach((employee:Employees) => employee.greet())
+
+console.log(`************************************************************`);
+console.log(`Same method, but different results since the Employee greet method was extended`);
+console.log(`************************************************************`);
+boss1.greet();
+employee1.greet();
+
+
+//// INTERFACES
+console.log(`************************************************************`);
+console.log(`INTERFACES`);
+console.log(`************************************************************`);
+let development: ITask = { //Defined in ITask.ts
+    title: "TypeScript development",
+    description: "Test develompent for training",
+    completed: false,
+    urgency: Levels.High,
+    status: function (): string {
+        return `${this.title} - ${this.completed} - Level ${this.urgency}`
+    }
+}
+
+console.log(development.status());
+
+
+// Development Task (Implements ITask)
+
+let developmentTS = new Develop("TypeScript", "TypeScript development task", false, Levels.Med);
+
+console.log(developmentTS.status());
+
+
+/// @ Decoration
+// Classes - Params - Methods - Properties
+/*
+function Override(label: string){
+    return function(target:any, key:string){
+        Object.defineProperty(target, key, {
+            configurable:false,
+            get: ()=> label
+        })
+    }
+}
+
+class DecorationTest {
+    @Override('test')
+    name:string = 'Peter';
+}
+
+
+let testDecor = new DecorationTest();
+console.log(testDecor.name)
+
+function ReadOnly(target:any, key:string){
+    Object.defineProperty(target, key, {
+        writable: false,
+    })
+}
+
+class ReadOnlyClass{
+    @ReadOnly
+    name: string = '';
+}
+
+let testReadOnly = new ReadOnlyClass();
+testReadOnly.name = 'Peter';
+
+console.log(testReadOnly.name)
+*/
+
+
+
+
+////////////// DESIGN PATERNS ////////////// 
+/**
+ * /patterns
+ * 
+ * 1. Creational patterns
+ *      - These patterns provide various object creation mechanisms, which increase flexibility and reuse of existing code.
+ * 
+ * 
+ * 2. Structural patterns
+ *      - These patterns explain how to assemble objects and classes into larger structures while keeping these structures flexible and efficient.
+ * 
+ * 3. Behavioral patterns
+ *      - These patterns are concerned with algorithms and the assignment of responsibilities between objects.
+ * 
+ * refactoring.guru
+ * 
+ */
+
+
+//Sigleton.ts
+
+/**
+ * The client code.
+ */
+
+    const myFirstSingleton = Singleton.getInstance();
+    const mySecondSingleton = Singleton.getInstance();
+    
+    /*Compares*/
+    if (myFirstSingleton === mySecondSingleton) {
+        console.log('Singleton works, both variables contain the same instance.');
+        myFirstSingleton.showInConsole();
+        mySecondSingleton.showInConsole();
+    } else {
+        console.log('Singleton failed, variables contain different instances.');
+    }
+    
