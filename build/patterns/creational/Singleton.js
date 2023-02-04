@@ -32,3 +32,4 @@ class Singleton {
     }
 }
 exports.Singleton = Singleton;
+//# sourceMappingURL=Singleton.js.map

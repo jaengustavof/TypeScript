@@ -8,3 +8,4 @@ class Course {
     }
 }
 exports.Course = Course;
+//# sourceMappingURL=Courses.js.map

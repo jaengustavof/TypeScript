@@ -596,3 +596,5 @@ if (myFirstSingleton === mySecondSingleton) {
 else {
     console.log('Singleton failed, variables contain different instances.');
 }
+//
+//# sourceMappingURL=index.js.map

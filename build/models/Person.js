@@ -30,3 +30,4 @@ class Boss extends Person {
     }
 }
 exports.Boss = Boss;
+//# sourceMappingURL=Person.js.map

@@ -21,7 +21,6 @@ console.log('New Message');
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-//TODO:
 
 // Variables:
 var userName: string = 'Pete'; //Global
@@ -137,8 +136,8 @@ let car: Product = {
 }
 console.log(`Car name: ${car.name}`);
 console.log(`Car price: ${car.price}`);
-console.log(`************************************************************`);
-console.log(`************************************************************`);
+console.log(`************************************************************`)
+console.log(`************************************************************`)
 
 
 //CONDITIONS//
@@ -807,3 +806,4 @@ console.log(testReadOnly.name)
         console.log('Singleton failed, variables contain different instances.');
     }
     
+//

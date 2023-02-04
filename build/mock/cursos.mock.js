@@ -7,3 +7,4 @@ exports.COURSE_LIST = [
     new Courses_1.Course('JavaScript', 20),
     new Courses_1.Course('Angular', 40)
 ];
+//# sourceMappingURL=cursos.mock.js.map

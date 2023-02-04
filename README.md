@@ -46,3 +46,24 @@ npm i --save-dev rimraf
 add script to package.json
 "build:prod": "rimraf ./build && tsc",
 "start:prod": "npm run build:prod && node build/index.js"
+
+
+## Debug
+
+launch.json
+
+
+## ESlint
+
+https://www.npmjs.com/package/eslint
+
+package.json ->
+    "linting": "eslint",
+    "linting:fix": "eslint --fix",
+
+## TypeDocs
+
+npm i --save-dev typedoc
+package.json -> "document": "typedoc --out docs src",
+
+https://microsoft.github.io/tsdoc/
